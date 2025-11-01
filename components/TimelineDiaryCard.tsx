@@ -63,7 +63,7 @@ export default function TimelineDiaryCard({ diary, index, isLast = false }: Time
                 {diary.title}
               </h2>
               {preview && (
-                <p className="text-gray-700 dark:text-white text-base leading-relaxed sm:text-lg">
+                <p className="text-gray-700 dark:text-white text-base leading-relaxed sm:text-lg line-clamp-2 sm:line-clamp-3">
                   {preview}
                 </p>
               )}
