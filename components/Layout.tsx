@@ -21,6 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 height={32}
                 priority
                 className="h-6 sm:h-8 w-auto"
+                suppressHydrationWarning
               />
             </Link>
           </div>

@@ -26,6 +26,7 @@ export function getAllDiariesFromFiles(): Diary[] {
           content: content,
           createdAt: data.date || new Date().toISOString(),
           updatedAt: data.date || new Date().toISOString(),
+          image: data.image || undefined,
         };
       })
       .sort((a, b) => {
@@ -55,6 +56,7 @@ export function getDiaryByIdFromFiles(id: string): Diary | null {
       content: content,
       createdAt: data.date || new Date().toISOString(),
       updatedAt: data.date || new Date().toISOString(),
+      image: data.image || undefined,
     };
   } catch (error) {
     console.error('Failed to read diary:', error);

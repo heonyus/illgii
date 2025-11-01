@@ -4,6 +4,7 @@ export interface Diary {
   content: string;
   createdAt: string;
   updatedAt: string;
+  image?: string;
 }
 
 export interface DiaryFormData {
