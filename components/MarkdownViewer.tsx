@@ -19,12 +19,12 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
     
     // HTML 이미지 태그를 마크다운 이미지 문법으로 변환
     // width 속성을 URL에 query parameter로 추가하여 유지
-    // 이미지가 블록 레벨 요소로 처리되도록 앞뒤에 빈 줄 추가
+    // 이미지가 인라인으로 처리되어 간격 없이 텍스트와 붙어있도록 변환
     processed = processed.replace(/<img\s+src="([^"]+)"\s+alt="([^"]*)"(?:\s+width="(\d+)")?\s*\/?>/g, (match, src, alt, width) => {
       // width 정보를 URL에 포함 (이미 query parameter가 있으면 &, 없으면 ? 추가)
       const separator = src.includes('?') ? '&' : '?';
       const srcWithWidth = width ? `${src}${separator}width=${width}` : src;
-      return `\n\n![${alt || ''}](${srcWithWidth})\n\n`;
+      return `![${alt || ''}](${srcWithWidth})`;
     });
     
     const lines = processed.split('\n');
@@ -77,7 +77,10 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
       prose-ul:text-gray-700 prose-ol:text-gray-700 prose-li:my-2 
       prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm 
       prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto
-      prose-blockquote:before:content-none prose-blockquote:after:content-none">
+      prose-blockquote:before:content-none prose-blockquote:after:content-none
+      prose-figure:my-0 prose-figure:!mt-0 prose-figure:!mb-0
+      [&_p+figure]:!mt-0 [&_figure+p]:!mt-0 [&_figure+p]:!mb-0
+      [&_p:has(figure)]:!my-0 [&_p:has(img)]:!my-0">
       <ReactMarkdown 
         remarkPlugins={[remarkGfm, remarkBreaks]}
         components={{
@@ -94,7 +97,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
                 const imgWidth = width ? (typeof width === 'string' ? parseInt(width, 10) : width) : undefined;
                 
                 return (
-                  <figure className="my-0 flex flex-col items-center">
+                  <figure className="my-0 !mt-0 !mb-0 flex flex-col items-center [&+p]:!mt-0 [&+*]:!mt-0">
                     <img 
                       src={src} 
                       alt={alt || ''} 
@@ -136,7 +139,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
             }
             
             return (
-              <figure className="my-0 flex flex-col items-center">
+              <figure className="my-0 !mt-0 !mb-0 flex flex-col items-center [&+p]:!mt-0 [&+*]:!mt-0">
                 <img 
                   src={actualSrc} 
                   alt={alt || ''} 
@@ -206,8 +209,9 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
             const hasBlockElement = childrenArray.some(findBlockElement);
             
             // figure나 img 요소가 있으면 p 태그로 감싸지 않고 Fragment로 반환
+            // margin을 제거하기 위해 클래스 추가
             if (hasBlockElement) {
-              return <>{children}</>;
+              return <div className="!my-0">{children}</div>;
             }
             
             // 빈 단락 마커 확인
