@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Honey-LOG",
+  title: "JayLOG",
   description: "심플한 일기 웹사이트",
 };
 

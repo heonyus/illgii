@@ -13,7 +13,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               href="/" 
               className="text-xl font-semibold text-gray-900 transition-colors hover:text-gray-700 active:scale-95 sm:text-2xl"
             >
-              Honey-LOG
+              Jay_log
             </Link>
           </div>
         </div>
