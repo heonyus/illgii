@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -11,9 +12,16 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center justify-between">
             <Link 
               href="/" 
-              className="text-xl font-semibold text-gray-900 transition-colors hover:text-gray-700 active:scale-95 sm:text-2xl"
+              className="flex items-center gap-3 transition-opacity hover:opacity-80 active:scale-95"
             >
-              Jay_log
+              <Image
+                src="/logo.svg"
+                alt="JayLOG"
+                width={120}
+                height={32}
+                priority
+                className="h-6 sm:h-8 w-auto"
+              />
             </Link>
           </div>
         </div>

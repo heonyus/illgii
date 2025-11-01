@@ -15,6 +15,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "JayLOG",
   description: "심플한 일기 웹사이트",
+  icons: {
+    icon: '/logo-icon.svg',
+  },
 };
 
 export default function RootLayout({
