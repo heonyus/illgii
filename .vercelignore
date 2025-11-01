@@ -1,0 +1,8 @@
+# Vercel 배포를 위한 설정 파일
+
+# 불필요한 파일 제외
+node_modules
+.next
+.git
+.env*.local
+
