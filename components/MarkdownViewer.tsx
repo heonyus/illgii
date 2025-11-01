@@ -19,11 +19,12 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
     
     // HTML 이미지 태그를 마크다운 이미지 문법으로 변환
     // width 속성을 URL에 query parameter로 추가하여 유지
+    // 이미지가 블록 레벨 요소로 처리되도록 앞뒤에 빈 줄 추가
     processed = processed.replace(/<img\s+src="([^"]+)"\s+alt="([^"]*)"(?:\s+width="(\d+)")?\s*\/?>/g, (match, src, alt, width) => {
       // width 정보를 URL에 포함 (이미 query parameter가 있으면 &, 없으면 ? 추가)
       const separator = src.includes('?') ? '&' : '?';
       const srcWithWidth = width ? `${src}${separator}width=${width}` : src;
-      return `\n![${alt || ''}](${srcWithWidth})\n`;
+      return `\n\n![${alt || ''}](${srcWithWidth})\n\n`;
     });
     
     const lines = processed.split('\n');
@@ -168,11 +169,30 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
             // 재귀적으로 figure나 img 요소를 찾는 함수
             const findBlockElement = (node: any): boolean => {
               if (React.isValidElement(node)) {
-                if (node.type === 'figure' || node.type === 'img') {
+                const nodeType = node.type;
+                const nodeProps = (node.props as any);
+                
+                // figure나 img 요소를 직접 찾기
+                if (nodeType === 'figure' || nodeType === 'img') {
                   return true;
                 }
-                if ((node.props as any)?.children) {
-                  const childrenArray = React.Children.toArray((node.props as any).children);
+                
+                // img 컴포넌트 함수를 찾기 (다양한 형태 확인)
+                if (typeof nodeType === 'function') {
+                  const funcName = nodeType.name || (nodeType as any).displayName;
+                  if (funcName === 'img' || funcName === 'Img') {
+                    return true;
+                  }
+                }
+                
+                // props에서 img 관련 속성 확인 (src 또는 alt가 있으면 img로 간주)
+                if (nodeProps && (nodeProps.src || (nodeProps.alt !== undefined && nodeProps.alt !== null))) {
+                  return true;
+                }
+                
+                // children 재귀 검색
+                if (nodeProps?.children) {
+                  const childrenArray = React.Children.toArray(nodeProps.children);
                   return childrenArray.some(findBlockElement);
                 }
               }
