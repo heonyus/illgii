@@ -16,26 +16,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               href="/" 
               className="flex items-center gap-3 transition-opacity hover:opacity-80 active:scale-95 text-black dark:text-white"
             >
-              <svg 
-                width="120" 
-                height="32" 
-                viewBox="0 0 120 32" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 sm:h-8 w-auto"
-                aria-label="JaeLOG"
-              >
-                <text 
-                  x="0" 
-                  y="20" 
-                  fontFamily="system-ui, -apple-system, sans-serif" 
-                  fontSize="18" 
-                  fontWeight="600" 
-                  fill="currentColor"
-                >
-                  JaeLOG
-                </text>
-              </svg>
+              <span className="text-lg sm:text-xl font-semibold" style={{ fontFamily: "'BookkMyungjo', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
+                JaeLOG
+              </span>
             </Link>
             
             <nav className="flex items-center gap-0">
