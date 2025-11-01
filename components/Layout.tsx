@@ -21,7 +21,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </span>
             </Link>
             
-            <nav className="flex items-center gap-0">
+            <nav className="flex items-center gap-2">
               <Link
                 href="/"
                 className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black dark:text-white transition-colors hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md active:scale-95"
@@ -47,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black dark:text-white transition-colors hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md active:scale-95 -ml-2"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black dark:text-white transition-colors hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md active:scale-95"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
