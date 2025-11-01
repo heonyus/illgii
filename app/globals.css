@@ -43,3 +43,31 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
+
+/* blockquote 따옴표 제거 */
+.prose blockquote::before,
+.prose blockquote::after,
+.prose-lg blockquote::before,
+.prose-lg blockquote::after,
+div.prose blockquote::before,
+div.prose blockquote::after,
+div.prose-lg blockquote::before,
+div.prose-lg blockquote::after,
+blockquote::before,
+blockquote::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Tailwind Typography의 기본 blockquote 스타일 오버라이드 */
+.prose blockquote p::before,
+.prose blockquote p::after,
+.prose-lg blockquote p::before,
+.prose-lg blockquote p::after,
+div.prose blockquote p::before,
+div.prose blockquote p::after,
+div.prose-lg blockquote p::before,
+div.prose-lg blockquote p::after {
+  content: none !important;
+  display: none !important;
+}

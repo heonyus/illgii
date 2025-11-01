@@ -23,7 +23,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
       // width 정보를 URL에 포함 (이미 query parameter가 있으면 &, 없으면 ? 추가)
       const separator = src.includes('?') ? '&' : '?';
       const srcWithWidth = width ? `${src}${separator}width=${width}` : src;
-      return `\n\n![${alt || ''}](${srcWithWidth})\n\n`;
+      return `\n![${alt || ''}](${srcWithWidth})\n`;
     });
     
     const lines = processed.split('\n');
@@ -31,6 +31,29 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
     
     for (let i = 0; i < lines.length; i++) {
       const currentLine = lines[i];
+      const prevLine = i > 0 ? lines[i - 1] : '';
+      const isEmptyLine = currentLine.trim() === '';
+      
+      // 이전 라인이 블록 인용인지 확인
+      const prevIsBlockquote = prevLine.trim().startsWith('>');
+      
+      // 다음 라인이 일반 텍스트인지 확인 (블록 인용, 헤딩, 리스트, 코드 블록 등이 아닌 경우)
+      const isNextLinePlainText = i < lines.length - 1 && 
+        lines[i + 1].trim() !== '' && 
+        !lines[i + 1].trim().startsWith('>') &&
+        !lines[i + 1].trim().startsWith('#') &&
+        !lines[i + 1].trim().startsWith('-') &&
+        !lines[i + 1].trim().startsWith('*') &&
+        !lines[i + 1].trim().startsWith('```') &&
+        !lines[i + 1].trim().startsWith('<') &&
+        !lines[i + 1].trim().match(/^\d+\./); // 숫자 리스트도 제외
+      
+      // 블록 인용 다음에 빈 줄이 있고, 그 다음 일반 텍스트가 오는 경우
+      // 블록 인용이 끝나도록 명확히 구분하기 위해 실제 빈 줄로 유지
+      if (prevIsBlockquote && isEmptyLine && isNextLinePlainText) {
+        processedLines.push('');
+        continue;
+      }
       
       if (currentLine.trim() !== '') {
         processedLines.push(currentLine);
@@ -52,7 +75,8 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
       prose-strong:text-gray-900 prose-strong:font-semibold 
       prose-ul:text-gray-700 prose-ol:text-gray-700 prose-li:my-2 
       prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm 
-      prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto">
+      prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto
+      prose-blockquote:before:content-none prose-blockquote:after:content-none">
       <ReactMarkdown 
         remarkPlugins={[remarkGfm, remarkBreaks]}
         components={{
@@ -69,7 +93,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
                 const imgWidth = width ? (typeof width === 'string' ? parseInt(width, 10) : width) : undefined;
                 
                 return (
-                  <figure className="my-6 flex flex-col items-center">
+                  <figure className="my-0 flex flex-col items-center">
                     <img 
                       src={src} 
                       alt={alt || ''} 
@@ -111,7 +135,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
             }
             
             return (
-              <figure className="my-6 flex flex-col items-center">
+              <figure className="my-0 flex flex-col items-center">
                 <img 
                   src={actualSrc} 
                   alt={alt || ''} 
@@ -130,7 +154,10 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
           blockquote: ({ children, ...props }) => {
             return (
               <blockquote 
-                className="my-6 border-l-2 border-gray-300 pl-6 italic text-gray-600"
+                className="my-2 border-l-2 border-gray-300 bg-gray-100/50 rounded-r-md py-2 px-4 text-gray-700 not-italic [&::before]:content-none [&::after]:content-none [&_p::before]:content-none [&_p::after]:content-none [&_p]:my-0 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0"
+                style={{
+                  ['--tw-content']: 'none',
+                } as React.CSSProperties}
                 {...props}
               >
                 {children}
@@ -138,16 +165,29 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
             );
           },
           p: ({ children, ...props }) => {
+            // 재귀적으로 figure나 img 요소를 찾는 함수
+            const findBlockElement = (node: any): boolean => {
+              if (React.isValidElement(node)) {
+                if (node.type === 'figure' || node.type === 'img') {
+                  return true;
+                }
+                if ((node.props as any)?.children) {
+                  const childrenArray = React.Children.toArray((node.props as any).children);
+                  return childrenArray.some(findBlockElement);
+                }
+              }
+              if (Array.isArray(node)) {
+                return node.some(findBlockElement);
+              }
+              return false;
+            };
+            
             const childrenArray = React.Children.toArray(children);
+            const hasBlockElement = childrenArray.some(findBlockElement);
             
-            // figure 요소 찾기
-            const figureElement = childrenArray.find(
-              (child) => React.isValidElement(child) && child.type === 'figure'
-            );
-            
-            // figure 요소가 있으면 figure만 렌더링
-            if (figureElement) {
-              return <>{figureElement}</>;
+            // figure나 img 요소가 있으면 p 태그로 감싸지 않고 Fragment로 반환
+            if (hasBlockElement) {
+              return <>{children}</>;
             }
             
             // 빈 단락 마커 확인
@@ -162,11 +202,11 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
                 return node.map(extractText).join('');
               }
               if (React.isValidElement(node)) {
-                if (node.type === 'br' || node.type === 'figure') {
+                if (node.type === 'br' || node.type === 'figure' || node.type === 'img') {
                   return '';
                 }
-                if (node.props?.children) {
-                  return extractText(node.props.children);
+                if ((node.props as any)?.children) {
+                  return extractText((node.props as any).children);
                 }
                 return '';
               }
