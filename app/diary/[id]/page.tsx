@@ -1,6 +1,7 @@
 import { getDiaryByIdFromFiles } from '@/lib/fileStorage';
 import MarkdownViewer from '@/components/MarkdownViewer';
 import Layout from '@/components/Layout';
+import TopButton from '@/components/TopButton';
 import { notFound } from 'next/navigation';
 
 export default async function DiaryPage({ params }: { params: Promise<{ id: string }> }) {
@@ -29,6 +30,7 @@ export default async function DiaryPage({ params }: { params: Promise<{ id: stri
           <MarkdownViewer content={diary.content} />
         </div>
       </article>
+      <TopButton />
     </Layout>
   );
 }
