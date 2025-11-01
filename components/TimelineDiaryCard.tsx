@@ -11,7 +11,9 @@ interface TimelineDiaryCardProps {
 }
 
 export default function TimelineDiaryCard({ diary, index, isLast = false }: TimelineDiaryCardProps) {
-  const preview = diary.content.slice(0, 200).replace(/\n/g, ' ') + '...';
+  const preview = diary.content.length > 200 
+    ? diary.content.slice(0, 200).replace(/\n/g, ' ') + '...' 
+    : diary.content.replace(/\n/g, ' ');
   const date = new Date(diary.updatedAt);
   
   const dateString = date.toLocaleDateString('ko-KR', {
