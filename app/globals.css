@@ -1,9 +1,21 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@font-face {
+  font-family: 'BookkMyungjo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Lt.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #191919;
+}
+
+.dark {
+  --background: #000000;
+  --foreground: #f9fafb;
 }
 
 @theme inline {
@@ -20,9 +32,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: 'BookkMyungjo', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* 라이트 모드에서 body 배경색 강제 */
+html:not(.dark) body {
+  background-color: #ffffff !important;
 }
 
 /* 스크롤바 스타일링 */
@@ -35,13 +52,25 @@ body {
   background: #f1f1f1;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 4px;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 /* blockquote 따옴표 제거 */
@@ -70,4 +99,246 @@ div.prose-lg blockquote p::before,
 div.prose-lg blockquote p::after {
   content: none !important;
   display: none !important;
+}
+
+/* 다크모드에서 블로그 본문 텍스트 색상을 흰색으로 강제 */
+.dark .prose p,
+.dark .prose-lg p,
+.dark div.prose p,
+.dark div.prose-lg p,
+.dark .prose p.empty-paragraph,
+.dark .prose-lg p.empty-paragraph,
+.dark div.prose p.empty-paragraph,
+.dark div.prose-lg p.empty-paragraph {
+  color: #ffffff !important;
+}
+
+.dark .prose ul,
+.dark .prose ol,
+.dark .prose-lg ul,
+.dark .prose-lg ol,
+.dark div.prose ul,
+.dark div.prose ol,
+.dark div.prose-lg ul,
+.dark div.prose-lg ol {
+  color: #ffffff !important;
+}
+
+.dark .prose li,
+.dark .prose-lg li,
+.dark div.prose li,
+.dark div.prose-lg li {
+  color: #ffffff !important;
+}
+
+/* 모든 prose 내부 텍스트를 흰색으로 강제 (더 강력한 선택자) */
+.dark [class*="prose"] p,
+.dark [class*="prose"] ul,
+.dark [class*="prose"] ol,
+.dark [class*="prose"] li,
+.dark [class*="prose"] span:not([class*="code"]):not([class*="pre"]) {
+  color: #ffffff !important;
+}
+
+/* Tailwind Typography의 기본 다크모드 색상 비활성화 */
+.dark .prose {
+  --tw-prose-body: #ffffff !important;
+  --tw-prose-headings: #f3f4f6 !important;
+  --tw-prose-lead: #ffffff !important;
+  --tw-prose-links: #e5e7eb !important;
+  --tw-prose-bold: #ffffff !important;
+  --tw-prose-counters: #ffffff !important;
+  --tw-prose-bullets: #ffffff !important;
+  --tw-prose-hr: #ffffff !important;
+  --tw-prose-quotes: #ffffff !important;
+  --tw-prose-quote-borders: #ffffff !important;
+  --tw-prose-captions: #ffffff !important;
+  --tw-prose-code: #ffffff !important;
+  --tw-prose-pre-code: #ffffff !important;
+  --tw-prose-pre-bg: #1f2937 !important;
+  --tw-prose-th-borders: #ffffff !important;
+  --tw-prose-td-borders: #ffffff !important;
+}
+
+/* ============================================
+   라이트모드 스타일 (기본 스타일)
+   ============================================ */
+
+/* 라이트모드 body 및 전체 배경 강제 */
+html:not(.dark) body,
+html:not(.dark) {
+  background-color: #ffffff !important;
+}
+
+html:not(.dark) body > div {
+  background-color: #ffffff !important;
+}
+
+/* 라이트모드 네비게이션 바 강제 */
+html:not(.dark) header {
+  background-color: #ffffff !important; /* 완전 불투명 흰색 */
+  border-bottom-color: #e5e7eb !important; /* border-gray-200 */
+}
+
+html:not(.dark) header a,
+html:not(.dark) header button {
+  color: #000000 !important; /* 검은색 */
+}
+
+html:not(.dark) header a:hover,
+html:not(.dark) header button:hover {
+  color: #000000 !important; /* 검은색 유지 */
+  background-color: #f9fafb !important; /* hover:bg-gray-50 */
+}
+
+html:not(.dark) header svg text {
+  fill: #000000 !important; /* 검은색 */
+}
+
+html:not(.dark) header svg {
+  color: #000000 !important; /* 검은색 */
+}
+
+html:not(.dark) header svg path {
+  stroke: #000000 !important; /* 검은색 */
+  fill: #000000 !important; /* 검은색 */
+}
+
+/* 라이트모드 블로그 카드 - Tailwind 클래스와 함께 사용 */
+article[class*="border-gray-200"]:not(.dark *) {
+  background-color: #ffffff !important;
+}
+
+article[class*="border-gray-200"]:not(.dark *) h2 {
+  color: #111827 !important; /* text-gray-900 */
+}
+
+article[class*="border-gray-200"]:not(.dark *) p {
+  color: #374151 !important; /* text-gray-700 */
+}
+
+/* 라이트모드 블로그 페이지 제목 강제 - 모든 선택자 포함 */
+html:not(.dark) article header h1,
+html:not(.dark) article header h1.text-gray-900,
+html:not(.dark) body article header h1,
+html:not(.dark) body article header h1.text-gray-900,
+html:not(.dark) article > header > h1,
+html:not(.dark) main article header h1,
+html:not(.dark) main article header h1.text-gray-900,
+html:not(.dark) .diary-title {
+  color: #111827 !important; /* text-gray-900 - 어두운 색상 */
+}
+
+/* 라이트모드 블로그 페이지 날짜 색상 강제 - 다크하게 */
+html:not(.dark) article header time,
+html:not(.dark) article header time.diary-date,
+html:not(.dark) body article header time,
+html:not(.dark) body article header time.diary-date,
+html:not(.dark) article > header > time,
+html:not(.dark) main article header time,
+html:not(.dark) main article header time.diary-date,
+html:not(.dark) .diary-date {
+  color: #111827 !important; /* text-gray-900 - 어두운 색상 */
+}
+
+/* 라이트모드 타임라인 날짜/요일 텍스트 */
+div[class*="flex-col"]:not(.dark *) div[class*="text-gray-900"] {
+  color: #111827 !important;
+}
+
+div[class*="flex-col"]:not(.dark *) div[class*="text-gray-800"] {
+  color: #1f2937 !important;
+}
+
+/* ============================================
+   다크모드 스타일
+   ============================================ */
+
+/* 다크모드 네비게이션 바 강제 */
+html.dark header {
+  background-color: #000000 !important; /* 완전 불투명 검은색 */
+  border-bottom-color: #374151 !important; /* border-gray-700 */
+}
+
+html.dark header a,
+html.dark header button {
+  color: #ffffff !important; /* 흰색 */
+}
+
+html.dark header a:hover,
+html.dark header button:hover {
+  color: #ffffff !important; /* 흰색 유지 */
+  background-color: #1f2937 !important; /* hover:bg-gray-800 */
+}
+
+html.dark header svg text {
+  fill: #ffffff !important; /* 흰색 */
+}
+
+html.dark header svg {
+  color: #ffffff !important; /* 흰색 */
+}
+
+html.dark header svg path {
+  stroke: #ffffff !important; /* 흰색 */
+  fill: #ffffff !important; /* 흰색 */
+}
+
+/* 다크모드 블로그 카드 */
+.dark article[class*="border-gray-800"] {
+  background-color: #000000 !important;
+}
+
+.dark article[class*="border-gray-800"] h2 {
+  color: #ffffff !important;
+}
+
+.dark article[class*="border-gray-800"] p {
+  color: #ffffff !important;
+}
+
+/* 다크모드 블로그 페이지 제목과 날짜 색상 통일 */
+html.dark article header h1,
+html.dark article header h1.text-gray-900,
+html.dark article header h1.diary-title,
+html.dark body article header h1,
+html.dark body article header h1.diary-title,
+html.dark article > header > h1,
+html.dark main article header h1,
+html.dark main article header h1.diary-title,
+html.dark .diary-title {
+  color: #f3f4f6 !important; /* text-gray-100 - 제목과 동일한 밝은 흰색 */
+}
+
+html.dark article header time,
+html.dark article header time.diary-date,
+html.dark body article header time,
+html.dark body article header time.diary-date,
+html.dark article > header > time,
+html.dark main article header time,
+html.dark main article header time.diary-date,
+html.dark .diary-date {
+  color: #f3f4f6 !important; /* text-gray-100 - 제목과 동일한 밝은 흰색 */
+}
+
+/* 다크모드 타임라인 날짜/요일 텍스트 */
+.dark div[class*="flex-col"] div[class*="text-gray-900"],
+.dark div[class*="flex-col"] div[class*="text-gray-800"],
+.dark div[class*="flex-col"] div[class*="text-gray-100"],
+.dark div[class*="flex-col"] div[class*="text-gray-400"] {
+  color: #ffffff !important;
+}
+
+/* 다크모드 타임라인 점 */
+.dark div[class*="rounded-full"][class*="bg-gray-800"] {
+  background-color: #ffffff !important;
+}
+
+.dark div[class*="rounded-full"][class*="bg-gray-800"] {
+  border-color: #000000 !important;
+}
+
+/* 다크모드 타임라인 선 */
+.dark div[class*="bg-gray-200"] {
+  background-color: #374151 !important; /* gray-700 */
 }

@@ -21,9 +21,9 @@ export default async function DiaryPage({ params }: { params: Promise<{ id: stri
   return (
     <Layout>
       <article>
-        <header className="mb-8 pb-8 border-b border-gray-100">
-          <h1 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">{diary.title}</h1>
-          <time className="text-sm text-gray-500">{date}</time>
+        <header className="mb-8 pb-8 border-b border-gray-200 dark:border-gray-800">
+          <h1 className="mb-4 text-3xl font-bold text-gray-900 dark:text-gray-100 sm:text-4xl diary-title">{diary.title}</h1>
+          <time className="text-sm text-gray-900 dark:text-gray-100 diary-date">{date}</time>
         </header>
 
         <div className="mb-8">

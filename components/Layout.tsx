@@ -1,36 +1,47 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
+import ThemeToggle from './ThemeToggle';
 
 const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagram.com/ho.en.y';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-white">
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur-md">
+    <div className="min-h-screen transition-colors bg-white dark:bg-black">
+      <header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-black backdrop-blur-md">
         <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between">
             <Link 
               href="/" 
-              className="flex items-center gap-3 transition-opacity hover:opacity-80 active:scale-95"
+              className="flex items-center gap-3 transition-opacity hover:opacity-80 active:scale-95 text-black dark:text-white"
             >
-              <Image
-                src="/logo.svg"
-                alt="JayLOG"
-                width={120}
-                height={32}
-                priority
+              <svg 
+                width="120" 
+                height="32" 
+                viewBox="0 0 120 32" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
                 className="h-6 sm:h-8 w-auto"
-                suppressHydrationWarning
-              />
+                aria-label="JaeLOG"
+              >
+                <text 
+                  x="0" 
+                  y="20" 
+                  fontFamily="system-ui, -apple-system, sans-serif" 
+                  fontSize="18" 
+                  fontWeight="600" 
+                  fill="currentColor"
+                >
+                  JaeLOG
+                </text>
+              </svg>
             </Link>
             
             <nav className="flex items-center gap-0">
               <Link
                 href="/"
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 hover:bg-gray-50 rounded-md active:scale-95"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black dark:text-white transition-colors hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md active:scale-95"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +64,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:text-gray-900 hover:bg-gray-50 rounded-md active:scale-95 -ml-2"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black dark:text-white transition-colors hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md active:scale-95 -ml-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -65,6 +76,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </svg>
                 <span className="hidden sm:inline"></span>
               </a>
+              
+              <ThemeToggle />
             </nav>
           </div>
         </div>
@@ -78,9 +91,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </motion.div>
       </main>
-      <footer className="border-t border-gray-100 mt-12">
+      <footer className="border-t border-gray-200 dark:border-gray-800 mt-12">
         <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
-          <p className="text-center text-sm text-gray-500">
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
             © {new Date().getFullYear()} heonyus. All rights reserved.
           </p>
         </div>

@@ -125,7 +125,7 @@ export default function NotionEditor({ initialContent = '', onChange }: NotionEd
         onPaste={handlePaste}
         onDrop={handleDrop}
         placeholder="일기를 작성해주세요..."
-        className="absolute inset-0 w-full resize-none bg-transparent p-0 font-sans text-lg leading-relaxed text-transparent caret-gray-900 focus:outline-none"
+        className="absolute inset-0 w-full resize-none bg-transparent p-0 font-sans text-lg leading-relaxed text-transparent caret-gray-900 dark:caret-gray-100 focus:outline-none"
         style={{ 
           zIndex: 2,
           whiteSpace: 'pre-wrap',
@@ -135,7 +135,7 @@ export default function NotionEditor({ initialContent = '', onChange }: NotionEd
       
       {/* 렌더링된 마크다운 (에디터처럼 보이게) */}
       <div
-        className="min-h-[500px] w-full rounded-lg border-0 bg-white p-6 font-sans text-lg leading-relaxed text-gray-900 prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-gray-900 prose-headings:mt-8 prose-headings:mb-4 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-900 prose-p:leading-relaxed prose-p:my-4 prose-p:whitespace-pre-wrap prose-a:text-gray-900 prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-gray-600 prose-strong:text-gray-900 prose-strong:font-semibold prose-ul:text-gray-900 prose-ol:text-gray-900 prose-li:my-2 prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600 prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto"
+        className="min-h-[500px] w-full rounded-lg border-0 bg-white dark:bg-[#0a0a0a] p-6 font-sans text-lg leading-relaxed text-gray-900 dark:text-gray-100 prose prose-lg max-w-none prose-headings:font-semibold prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-headings:mt-8 prose-headings:mb-4 prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl prose-p:text-gray-900 dark:prose-p:text-gray-100 prose-p:leading-relaxed prose-p:my-4 prose-p:whitespace-pre-wrap prose-a:text-gray-900 dark:prose-a:text-gray-200 prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-gray-600 dark:hover:prose-a:text-gray-400 prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-strong:font-semibold prose-ul:text-gray-900 dark:prose-ul:text-gray-100 prose-ol:text-gray-900 dark:prose-ol:text-gray-100 prose-li:my-2 prose-blockquote:border-l-4 prose-blockquote:border-gray-300 dark:prose-blockquote:border-gray-700 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-300 prose-code:text-gray-900 dark:prose-code:text-gray-200 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto"
         style={{ 
           zIndex: 1,
           pointerEvents: 'none',
@@ -167,7 +167,7 @@ export default function NotionEditor({ initialContent = '', onChange }: NotionEd
             {processContent(content)}
           </ReactMarkdown>
         ) : (
-          <span className="text-gray-400">일기를 작성해주세요...</span>
+          <span className="text-gray-400 dark:text-gray-500">일기를 작성해주세요...</span>
         )}
       </div>
     </div>

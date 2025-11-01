@@ -69,15 +69,16 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
 
   return (
     <div className="prose prose-lg max-w-none 
-      prose-headings:font-semibold prose-headings:text-gray-900 prose-headings:mt-8 prose-headings:mb-4 
+      prose-headings:font-semibold prose-headings:text-gray-900 dark:prose-headings:text-gray-100 prose-headings:mt-8 prose-headings:mb-4 
       prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl 
-      prose-p:text-gray-700 prose-p:leading-relaxed prose-p:my-4 
-      prose-a:text-gray-900 prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-gray-600 
-      prose-strong:text-gray-900 prose-strong:font-semibold 
-      prose-ul:text-gray-700 prose-ol:text-gray-700 prose-li:my-2 
-      prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm 
-      prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto
+      prose-p:text-gray-700 dark:prose-p:text-white prose-p:leading-relaxed prose-p:my-4 
+      prose-a:text-gray-900 dark:prose-a:text-gray-200 prose-a:underline prose-a:underline-offset-2 hover:prose-a:text-gray-700 dark:hover:prose-a:text-gray-300 
+      prose-strong:text-gray-900 dark:prose-strong:text-gray-100 prose-strong:font-semibold 
+      prose-ul:text-gray-700 dark:prose-ul:text-white prose-ol:text-gray-700 dark:prose-ol:text-white prose-li:my-2 
+      prose-code:text-gray-900 dark:prose-code:text-gray-200 prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm 
+      prose-pre:bg-gray-100 dark:prose-pre:bg-gray-950 prose-pre:text-gray-900 dark:prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4 prose-pre:overflow-x-auto
       prose-blockquote:before:content-none prose-blockquote:after:content-none
+      dark:prose-blockquote:text-gray-200 dark:prose-blockquote:border-gray-700 dark:prose-blockquote:bg-gray-800/30
       prose-figure:my-0 prose-figure:!mt-0 prose-figure:!mb-0
       [&_p+figure]:!mt-0 [&_figure+p]:!mt-0 [&_figure+p]:!mb-0
       [&_p:has(figure)]:!my-0 [&_p:has(img)]:!my-0">
@@ -106,7 +107,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
                       style={imgWidth ? { width: `${imgWidth}px` } : {}}
                     />
                     {alt && (
-                      <figcaption className="mt-2 text-sm text-gray-400 text-center">
+                      <figcaption className="mt-2 text-sm text-gray-600 dark:text-gray-400 text-center">
                         {alt}
                       </figcaption>
                     )}
@@ -148,7 +149,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
                   style={imgWidth ? { width: `${imgWidth}px` } : {}}
                 />
                 {alt && alt.trim() && (
-                  <figcaption className="mt-2 text-sm text-gray-400 text-center">
+                  <figcaption className="mt-2 text-sm text-gray-600 dark:text-gray-400 text-center">
                     {alt}
                   </figcaption>
                 )}
@@ -158,7 +159,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
           blockquote: ({ children, ...props }) => {
             return (
               <blockquote 
-                className="my-2 border-l-2 border-gray-300 bg-gray-100/50 rounded-r-md py-2 px-4 text-gray-700 not-italic [&::before]:content-none [&::after]:content-none [&_p::before]:content-none [&_p::after]:content-none [&_p]:my-0 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0"
+                className="my-2 border-l-2 border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/30 rounded-r-md py-2 px-4 text-gray-700 dark:text-gray-200 not-italic [&::before]:content-none [&::after]:content-none [&_p::before]:content-none [&_p::after]:content-none [&_p]:my-0 [&_p:first-child]:mt-0 [&_p:last-child]:mb-0"
                 style={{
                   ['--tw-content']: 'none',
                 } as React.CSSProperties}
@@ -216,7 +217,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
             
             // 빈 단락 마커 확인
             if (!children) {
-              return <p className="empty-paragraph" {...props}></p>;
+              return <p className="empty-paragraph dark:text-white text-gray-700" {...props}></p>;
             }
             
             const extractText = (node: any): string => {
@@ -244,7 +245,7 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
               return <p className="empty-paragraph" {...props}></p>;
             }
             
-            return <p {...props}>{children}</p>;
+            return <p className="dark:text-white text-gray-700" {...props}>{children}</p>;
           },
         }}
       >

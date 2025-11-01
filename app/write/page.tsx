@@ -48,7 +48,7 @@ export default function WritePage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="제목을 입력하세요"
-            className="w-full border-0 text-4xl font-bold text-gray-900 placeholder:text-gray-400 focus:outline-none"
+            className="w-full border-0 text-4xl font-bold text-gray-900 dark:text-gray-100 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none bg-transparent"
           />
         </div>
 
@@ -58,13 +58,13 @@ export default function WritePage() {
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className="rounded-full bg-gray-900 px-6 py-3 text-sm font-medium text-white transition-all hover:bg-gray-800 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="rounded-full bg-gray-900 dark:bg-gray-100 px-6 py-3 text-sm font-medium text-white dark:text-gray-900 transition-all hover:bg-gray-800 dark:hover:bg-gray-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSaving ? '저장 중...' : '저장'}
           </button>
           <button
             onClick={handleCancel}
-            className="rounded-full border border-gray-200 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition-all hover:bg-gray-50 active:scale-95"
+            className="rounded-full border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0a0a0a] px-6 py-3 text-sm font-medium text-gray-700 dark:text-gray-300 transition-all hover:bg-gray-50 dark:hover:bg-gray-800 active:scale-95"
           >
             취소
           </button>
