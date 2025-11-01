@@ -37,47 +37,43 @@ export default function TimelineDiaryCard({ diary, index, isLast = false }: Time
       transition={{ duration: 0.3, delay: index * 0.05 }}
       className="relative flex gap-4 sm:gap-6 md:gap-8 items-start"
     >
-      {/* 타임라인 선과 날짜 영역 */}
-      <div className="flex flex-col items-center shrink-0 relative">
-        {/* 위쪽 타임라인 선 (절대 위치 - 위쪽 노드 위에서만, 날짜 영역을 가로지르지 않음) */}
-        {/* 구조: 이전 선 → 위쪽 점 → 날짜/요일 → 아래쪽 점 → 아래쪽 선 */}
+      {/* 타임라인 구조: 날짜→노드→선→노드→날짜 (겹침 없이 순차 배치) */}
+      <div className={`relative flex flex-col items-center shrink-0 self-stretch ${index === 0 ? 'pt-5' : ''}`}>
+        {/* 
+          완전한 순차 구조 (절대 겹치지 않음):
+          - 시작점 (index === 0): 날짜/요일 -> 노드 -> 선 -> 노드(다음 항목의 상단)
+          - 중간 (index > 0): (이전 항목의 노드) -> 날짜/요일 -> 노드 -> 선 -> 노드(다음 항목의 상단)
+          - 종점 (isLast): (이전 항목의 노드) -> 날짜/요일
+          
+          모든 요소는 flex로 배치되어 겹침이 불가능함
+        */}
+
+        {/* 상단 노드 (첫 번째가 아닌 항목에만 표시) */}
         {index > 0 && (
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-0.5 bg-gray-200 dark:bg-gray-700 z-0"
-            style={{ 
-              height: 'calc(2rem - 0.75rem)',  // 이전 항목의 선 끝부터 위쪽 노드까지
-              top: '-2rem'  // 이전 항목의 아래쪽 선이 이어지는 위치
-            }}
-          />
+          <div className="w-3 h-3 rounded-full bg-gray-800 dark:bg-white border-2 border-white dark:border-[#0a0a0a] shadow-md mb-3" />
         )}
-        
-        {/* 위쪽 노드 (절대 위치 - 선의 끝에 위치, 날짜 위에) */}
-        {index > 0 && (
-          <div 
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-gray-800 dark:bg-white border-2 border-white dark:border-[#0a0a0a] shadow-sm z-10"
-            style={{ top: '-0.75rem' }}
-          />
-        )}
-        
-        {/* 날짜/요일 표시 - 항상 동일한 위치에 고정 (카드와 정렬 유지) */}
-        <div className="flex flex-col items-center mb-3 relative z-10">
-          <div className="text-sm font-semibold text-gray-900 dark:text-white">{String(date.getFullYear() % 100).padStart(2, '0')}.{String(date.getMonth() + 1).padStart(2, '0')}.{String(date.getDate()).padStart(2, '0')}</div>
+
+        {/* 날짜 및 요일 (모든 항목에 표시) */}
+        <div className="flex flex-col items-center">
+          <div className="text-sm font-semibold text-gray-900 dark:text-white">
+            {String(date.getFullYear() % 100).padStart(2, '0')}.{String(date.getMonth() + 1).padStart(2, '0')}.{String(date.getDate()).padStart(2, '0')}
+          </div>
           <div className="text-xs text-gray-800 dark:text-white mt-1">{dayOfWeek}</div>
         </div>
-        
-        {/* 아래쪽 타임라인 점 - 날짜/요일 아래에 위치 (마지막 항목이 아닌 경우만) */}
+
+        {/* 하단 노드 (마지막이 아닌 항목에만 표시) */}
         {!isLast && (
-          <div className="w-3 h-3 rounded-full bg-gray-800 dark:bg-white border-2 border-white dark:border-[#0a0a0a] shadow-sm z-10 relative" />
+          <div className="w-3 h-3 rounded-full bg-gray-800 dark:bg-white border-2 border-white dark:border-[#0a0a0a] shadow-md mt-3" />
         )}
-        
-        {/* 타임라인 선 - 다음 항목까지 이어지도록 */}
+
+        {/* 연결선 (마지막이 아닌 항목에만 표시) */}
         {!isLast && (
-          <div className="w-0.5 bg-gray-200 dark:bg-gray-700 mt-2 flex-1 min-h-[8rem] sm:min-h-[10rem] md:min-h-[12rem]" />
+          <div className="w-0.5 bg-gray-200 dark:bg-gray-700 flex-1 min-h-[8rem] sm:min-h-[10rem] md:min-h-[12rem] mt-2" />
         )}
       </div>
 
       {/* 일기 카드 (미디엄/브런치 스타일) */}
-      <div className="flex-1 pb-8 sm:pb-10 md:pb-12">
+      <div className="flex-1 pb-8 sm:pb-10 md:pb-12 pt-6">
         <Link href={`/diary/${diary.id}`}>
           <article className="group cursor-pointer rounded-xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-[#0a0a0a] p-8 transition-all duration-200 hover:border-gray-300 dark:hover:border-gray-700 hover:shadow-xl hover:-translate-y-0.5 active:scale-[0.99] flex gap-6">
             <div className="flex-1 min-w-0">

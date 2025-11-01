@@ -14,7 +14,7 @@ export default function HomePage() {
           <p className="mb-8 text-gray-600 dark:text-gray-400 sm:text-lg">diaries 폴더에 마크다운 파일을 추가해주세요.</p>
         </div>
       ) : (
-        <div>
+        <div className="overflow-visible">
           {diaries.map((diary, index) => (
             <TimelineDiaryCard 
               key={diary.id} 
