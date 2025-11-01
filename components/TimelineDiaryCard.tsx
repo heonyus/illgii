@@ -11,9 +11,12 @@ interface TimelineDiaryCardProps {
 }
 
 export default function TimelineDiaryCard({ diary, index, isLast = false }: TimelineDiaryCardProps) {
-  const preview = diary.content.length > 200 
-    ? diary.content.slice(0, 200).replace(/\n/g, ' ') + '...' 
-    : diary.content.replace(/\n/g, ' ');
+  // 첫 줄만 추출 (빈 줄 제외)
+  const firstLine = diary.content
+    .split('\n')
+    .find(line => line.trim().length > 0) || diary.content.split('\n')[0] || '';
+  const preview = firstLine.trim();
+  
   const date = new Date(diary.updatedAt);
   
   const dateString = date.toLocaleDateString('ko-KR', {
@@ -57,10 +60,12 @@ export default function TimelineDiaryCard({ diary, index, isLast = false }: Time
             <h2 className="mb-4 text-2xl font-bold text-gray-900 transition-colors group-hover:text-gray-700 sm:text-3xl leading-tight">
               {diary.title}
             </h2>
-            <p className="mb-6 line-clamp-3 text-gray-600 text-base leading-relaxed sm:text-lg">
-              {preview}
-            </p>
-            <time className="text-xs text-gray-400 font-medium">{dateString}</time>
+            <time className="mb-4 block text-xs text-gray-400 font-medium">{dateString}</time>
+            {preview && (
+              <p className="text-gray-600 text-base leading-relaxed sm:text-lg">
+                {preview}
+              </p>
+            )}
           </article>
         </Link>
       </div>
