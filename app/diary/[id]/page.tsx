@@ -1,7 +1,8 @@
-import { getDiaryByIdFromFiles } from '@/lib/fileStorage';
+import { getDiaryByIdFromFiles, getNextAndPrevDiary } from '@/lib/fileStorage';
 import MarkdownViewer from '@/components/MarkdownViewer';
 import Layout from '@/components/Layout';
 import TopButton from '@/components/TopButton';
+import NavButtons from '@/components/NavButtons';
 import { notFound } from 'next/navigation';
 
 export default async function DiaryPage({ params }: { params: Promise<{ id: string }> }) {
@@ -11,6 +12,8 @@ export default async function DiaryPage({ params }: { params: Promise<{ id: stri
   if (!diary) {
     notFound();
   }
+
+  const { next, prev } = getNextAndPrevDiary(id);
 
   const date = new Date(diary.updatedAt).toLocaleDateString('ko-KR', {
     year: 'numeric',
@@ -31,6 +34,7 @@ export default async function DiaryPage({ params }: { params: Promise<{ id: stri
         </div>
       </article>
       <TopButton />
+      <NavButtons nextDiary={next} prevDiary={prev} />
     </Layout>
   );
 }

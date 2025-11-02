@@ -64,3 +64,17 @@ export function getDiaryByIdFromFiles(id: string): Diary | null {
   }
 }
 
+export function getNextAndPrevDiary(id: string): { next: Diary | null; prev: Diary | null } {
+  const allDiaries = getAllDiariesFromFiles();
+  const currentIndex = allDiaries.findIndex((diary) => diary.id === id);
+
+  if (currentIndex === -1) {
+    return { next: null, prev: null };
+  }
+
+  const next = currentIndex > 0 ? allDiaries[currentIndex - 1] : null;
+  const prev = currentIndex < allDiaries.length - 1 ? allDiaries[currentIndex + 1] : null;
+
+  return { next, prev };
+}
+
