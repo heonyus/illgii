@@ -267,6 +267,63 @@ div[class*="flex-col"]:not(.dark *) div[class*="text-gray-800"] {
   color: #1f2937 !important;
 }
 
+/* 라이트모드 마크다운 본문 텍스트 색상 강제 - 검은색 */
+/* 모든 가능한 선택자로 강제 적용 */
+.prose p,
+.prose-lg p,
+div.prose p,
+div.prose-lg p,
+article .prose p,
+article .prose-lg p,
+article div.prose p,
+article div.prose-lg p,
+.prose p.empty-paragraph,
+.prose-lg p.empty-paragraph,
+div.prose p.empty-paragraph,
+div.prose-lg p.empty-paragraph {
+  color: #000000 !important;
+}
+
+.prose ul,
+.prose ol,
+.prose-lg ul,
+.prose-lg ol,
+div.prose ul,
+div.prose ol,
+div.prose-lg ul,
+div.prose-lg ol,
+article .prose ul,
+article .prose ol,
+article .prose-lg ul,
+article .prose-lg ol {
+  color: #000000 !important;
+}
+
+.prose li,
+.prose-lg li,
+div.prose li,
+div.prose-lg li,
+article .prose li,
+article .prose-lg li {
+  color: #000000 !important;
+}
+
+.prose,
+.prose-lg,
+div.prose,
+div.prose-lg {
+  --tw-prose-body: #000000 !important;
+  color: #000000 !important;
+}
+
+/* 더 구체적인 선택자로 강제 */
+article .prose *:not(pre):not(code):not(pre code),
+article .prose-lg *:not(pre):not(code):not(pre code),
+article div.prose *:not(pre):not(code):not(pre code),
+article div.prose-lg *:not(pre):not(code):not(pre code) {
+  color: #000000 !important;
+}
+
 /* ============================================
    다크모드 스타일
    ============================================ */

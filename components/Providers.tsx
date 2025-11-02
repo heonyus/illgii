@@ -21,10 +21,9 @@ export function Providers({ children }: { children: React.ReactNode }) {
       enableSystem={false}
       storageKey="theme"
       disableTransitionOnChange={false}
-      forcedTheme={undefined}
+      forcedTheme="light"
     >
       {children}
     </ThemeProvider>
   );
 }
-
