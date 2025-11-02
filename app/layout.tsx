@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "JaeLOG",
+  title: "일기장",
   description: "심플한 일기 웹사이트",
   icons: {
     icon: '/pencil-icon.svg',

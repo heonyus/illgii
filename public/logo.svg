@@ -1,6 +1,14 @@
 <svg width="120" height="32" viewBox="0 0 120 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- JaeLOG 텍스트 -->
-  <text x="0" y="20" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="600" fill="currentColor">
-    JaeLOG
+  <!-- 브랜드 텍스트: 일기장 -->
+  <text
+    x="50%"
+    y="20"
+    text-anchor="middle"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-size="18"
+    font-weight="600"
+    fill="currentColor"
+  >
+    일기장
   </text>
 </svg>

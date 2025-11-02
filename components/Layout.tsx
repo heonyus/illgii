@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               className="flex items-center gap-3 transition-opacity hover:opacity-80 active:scale-95 text-black"
             >
               <span className="text-lg sm:text-xl font-semibold" style={{ fontFamily: "'BookkMyungjo', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
-                JaeLOG
+                일기장
               </span>
             </Link>
             
