@@ -8,7 +8,7 @@ const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagra
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen transition-colors bg-white dark:bg-black">
+    <div className="min-h-dvh transition-colors bg-white dark:bg-black">
       <header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-black backdrop-blur-md">
         <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between">
@@ -84,4 +84,3 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-
