@@ -8,13 +8,13 @@ const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL || 'https://instagra
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-dvh transition-colors bg-white dark:bg-black">
-      <header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-black backdrop-blur-md">
+    <div className="min-h-dvh transition-colors bg-white">
+      <header className="sticky top-0 z-50 border-b border-gray-200 bg-white backdrop-blur-md">
         <div className="mx-auto max-w-4xl px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between">
             <Link 
               href="/" 
-              className="flex items-center gap-3 transition-opacity hover:opacity-80 active:scale-95 text-black dark:text-white"
+              className="flex items-center gap-3 transition-opacity hover:opacity-80 active:scale-95 text-black"
             >
               <span className="text-lg sm:text-xl font-semibold" style={{ fontFamily: "'BookkMyungjo', var(--font-geist-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
                 JaeLOG
@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <nav className="flex items-center gap-2">
               <Link
                 href="/"
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black dark:text-white transition-colors hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md active:scale-95"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black transition-colors hover:text-black hover:bg-gray-50 rounded-md active:scale-95"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black dark:text-white transition-colors hover:text-black dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md active:scale-95"
+                className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-black transition-colors hover:text-black hover:bg-gray-50 rounded-md active:scale-95"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +60,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <span className="hidden sm:inline"></span>
               </a>
               
-              <ThemeToggle />
+              {/* <ThemeToggle /> */}
             </nav>
           </div>
         </div>
@@ -74,9 +74,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           {children}
         </motion.div>
       </main>
-      <footer className="border-t border-gray-200 dark:border-gray-800 mt-12">
+      <footer className="border-t border-gray-200 mt-12">
         <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6">
-          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-center text-sm text-gray-600">
             © {new Date().getFullYear()} heonyus. All rights reserved.
           </p>
         </div>
