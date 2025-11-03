@@ -352,9 +352,9 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
 
               return (
                 <div className={`my-8 flex w-full justify-center${extraClasses ? ` ${extraClasses}` : ''}`}>
-                  <div className="flex items-center gap-2 text-gray-400 dark:text-gray-500">
+                  <div className="flex w-full max-w-[560px] items-center gap-2 text-gray-400 dark:text-gray-500">
                     <span className="block h-2.5 w-2.5 rounded-full border border-current"></span>
-                    <div className="h-px w-[500px] max-w-full bg-gray-300 dark:bg-gray-700"></div>
+                    <div className="h-px w-full max-w-[500px] flex-1 bg-gray-300 dark:bg-gray-700"></div>
                     <span className="block h-2.5 w-2.5 rounded-full border border-current"></span>
                   </div>
                 </div>
