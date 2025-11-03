@@ -12,6 +12,7 @@ interface MarkdownViewerProps {
 }
 
 const EMPTY_PARAGRAPH_MARKER = '\u200B\u200B';
+const CUSTOM_SEPARATOR_MARKER = '===';
 
 function escapeHtmlAttribute(value: string): string {
   return value
@@ -183,6 +184,20 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
           expectPlainEmptyLine = true;
           continue;
         }
+
+        if (trimmedLine === CUSTOM_SEPARATOR_MARKER) {
+          if (processedLines.length > 0) {
+            const last = processedLines[processedLines.length - 1];
+            if (last === EMPTY_PARAGRAPH_MARKER) {
+              processedLines[processedLines.length - 1] = '';
+            } else if (last !== '') {
+              processedLines.push('');
+            }
+          }
+          processedLines.push('<div class="diary-separator"></div>');
+          expectPlainEmptyLine = true;
+          continue;
+        }
       } else if (expectPlainEmptyLine) {
         processedLines.push('');
         expectPlainEmptyLine = false;
@@ -328,6 +343,22 @@ export default function MarkdownViewer({ content }: MarkdownViewerProps) {
                   </div>
                 );
               }
+            }
+            if (className && className.split(' ').includes('diary-separator')) {
+              const extraClasses = className
+                .split(' ')
+                .filter((token) => token && token !== 'diary-separator')
+                .join(' ');
+
+              return (
+                <div className={`my-8 flex w-full justify-center${extraClasses ? ` ${extraClasses}` : ''}`}>
+                  <div className="flex items-center gap-2 text-gray-400 dark:text-gray-500">
+                    <span className="block h-2.5 w-2.5 rounded-full border border-current"></span>
+                    <div className="h-px w-[500px] max-w-full bg-gray-300 dark:bg-gray-700"></div>
+                    <span className="block h-2.5 w-2.5 rounded-full border border-current"></span>
+                  </div>
+                </div>
+              );
             }
             return <div className={className} {...props}>{children}</div>;
           },
